@@ -18,6 +18,7 @@ export default function Account({ session }: { session: Session }) {
 
   useEffect(() => {
     getProfile();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
   async function getProfile() {
@@ -66,6 +67,7 @@ export default function Account({ session }: { session: Session }) {
         username: username,
         full_name: full_name,
         updated_at: new Date().toISOString(),
+        email: session.user.email,
       };
 
       const { error } = await supabase

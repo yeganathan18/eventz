@@ -10,11 +10,13 @@ const Alert = ({ text }) => (
 
 const GridCard = ({
   name,
+  id,
   description,
   date,
   location,
   max_seat,
 }: {
+    id: string;
   name: string;
   description: string;
   date: string;
@@ -25,7 +27,7 @@ const GridCard = ({
     let cdate = new Date(date).toLocaleDateString();
   return (
     <Link
-      href="#"
+        href={`/event/${id}`}
       className="hover:bg-gray-100 min-h-max p-4 bg-white rounded-lg border border-gray-300"
     >
       <h2 className="text-lg font-medium">{name}</h2>
@@ -37,7 +39,7 @@ const GridCard = ({
   );
 };
 
-export default function Todos() {
+export default function AllEvents() {
   const [events, setEvents] = useState([]);
   const [errorText, setError] = useState("");
 
@@ -83,6 +85,7 @@ export default function Todos() {
                 {events.map((event) => (
                     <GridCard
                         key={event.id}
+                        id={event.id}
                         name={event.event_name}
                         description={event.event_description}
                         date={event.event_date}
