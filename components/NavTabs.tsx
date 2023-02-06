@@ -6,6 +6,7 @@ const TabsHelper = (router: NextRouter): { name: string; href: string }[] => {
   return [
     { name: "All events", href: `/dashboard` },
     { name: "Registered events", href: `/registered-events` },
+    { name: "Verify users", href: `/verify` },
     { name: "Profile", href: `/profile` },
   ];
 };

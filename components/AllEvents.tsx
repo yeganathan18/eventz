@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/initSupabase";
 
@@ -7,9 +8,37 @@ const Alert = ({ text }) => (
   </div>
 );
 
+const GridCard = ({
+  name,
+  description,
+  date,
+  location,
+  max_seat,
+}: {
+  name: string;
+  description: string;
+  date: string;
+  location: string;
+  max_seat: number;
+}) => {
+
+    let cdate = new Date(date).toLocaleDateString();
+  return (
+    <Link
+      href="#"
+      className="hover:bg-gray-100 min-h-max p-4 bg-white rounded-lg border border-gray-300"
+    >
+      <h2 className="text-lg font-medium">{name}</h2>
+      <p className="text-gray-600 mt-2">Description: {description}</p>
+      <p className="text-gray-600 mt-2">Date: {cdate}</p>
+      <p className="text-gray-600 mt-2">Location: {location}</p>
+      <p className="text-gray-600 mt-2">Seats {max_seat}</p>
+    </Link>
+  );
+};
+
 export default function Todos() {
   const [events, setEvents] = useState([]);
-  const [newTaskText, setNewTaskText] = useState("");
   const [errorText, setError] = useState("");
 
   useEffect(() => {
@@ -22,30 +51,7 @@ export default function Todos() {
     else setEvents(events);
   };
 
-  console.log("events", events);
-
   const [searchTerm, setSearchTerm] = useState("");
-
-  //   const addTodo = async (taskText) => {
-  //     let task = taskText.trim()
-  //     if (task.length) {
-  //       let { data: todo, error } = await supabase
-  //         .from('todos')
-  //         .insert({ task, user_id: user.id })
-  //         .single()
-  //       if (error) setError(error.message)
-  //       else setTodos([...todos, todo])
-  //     }
-  //   }
-
-  //   const deleteTodo = async (id) => {
-  //     try {
-  //       await supabase.from('todos').delete().eq('id', id)
-  //       setTodos(todos.filter((x) => x.id != id))
-  //     } catch (error) {
-  //       console.log('error', error)
-  //     }
-  //   }
 
   return (
     <>
@@ -71,10 +77,20 @@ export default function Todos() {
       {!!errorText && <Alert text={errorText} />}
       <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
         <div className="grid grid-cols-1 gap-3">
-          <div className="flex flex-col items-center justify-center rounded-md border border-gray-200 bg-white py-12">
-            <h2 className="z-10 text-xl font-semibold text-gray-700">
-              Show event cards here
-            </h2>
+          <div className="flex flex-col px-12 rounded-md border border-gray-200 bg-white py-12">
+            {/* create grid cards with 3 col */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 justify-evenly">
+                {events.map((event) => (
+                    <GridCard
+                        key={event.id}
+                        name={event.event_name}
+                        description={event.event_description}
+                        date={event.event_date}
+                        location={event.location}
+                        max_seat={event.max_seat}
+                    />
+                ))}
+            </div>
           </div>
         </div>
       </div>

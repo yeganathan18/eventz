@@ -23,14 +23,12 @@ export default function AppLayout({
 
   return (
     <div>
-      <Toaster />
+      <Toaster position="top-center" reverseOrder={false} />
       <div
         className={`min-h-screen w-full ${bgWhite ? "bg-white" : "bg-gray-50"}`}
       >
         <Nav />
-        <div>
-          {children}
-        </div>
+        <div>{children}</div>
       </div>
     </div>
   );
