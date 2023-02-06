@@ -3,6 +3,7 @@ import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
 import { AppProps } from "next/app";
 import { Inter } from "@next/font/google";
+import "../styles/globals.css";
 import cx from "classnames";
 
 const inter = Inter({

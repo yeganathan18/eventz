@@ -7,17 +7,20 @@ const Home = () => {
   const supabase = useSupabaseClient();
 
   return (
-    <div className="container" style={{ padding: "50px 0 100px 0" }}>
-      {!session ? (
-        <Auth
-          supabaseClient={supabase}
-          appearance={{ theme: ThemeSupa }}
-          providers={["github"]}
-        />
-      ) : (
-        <Account session={session} />
-      )}
-    </div>
+    <main className="h-screen flex justify-center items-center">
+      <div className="flex flex-col">
+        <h1 className="text-center"> Welcome Back </h1>
+        {!session ? (
+          <Auth
+            supabaseClient={supabase}
+            appearance={{ theme: ThemeSupa }}
+            providers={["github"]}
+          />
+        ) : (
+          <Account session={session} />
+        )}
+      </div>
+    </main>
   );
 };
 
