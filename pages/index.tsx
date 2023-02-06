@@ -13,7 +13,7 @@ const Home = () => {
 
   return (
     <main className="h-screen flex justify-center items-center">
-      <div className="flex flex-col">
+      <div className="form-container">
         <h1 className="text-center"> Welcome Back </h1>
         {!session ? (
           <Auth
