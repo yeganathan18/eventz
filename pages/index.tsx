@@ -1,10 +1,15 @@
 import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
-import Account from "../components/Account";
+import { useRouter } from "next/router";
 
 const Home = () => {
   const session = useSession();
   const supabase = useSupabaseClient();
+  const router = useRouter();
+
+  if (session) {
+    router.push("/dashboard");
+  }
 
   return (
     <main className="h-screen flex justify-center items-center">
@@ -15,10 +20,9 @@ const Home = () => {
             supabaseClient={supabase}
             appearance={{ theme: ThemeSupa }}
             providers={["github"]}
+            redirectTo="/dashboard"
           />
-        ) : (
-          <Account session={session} />
-        )}
+        ) : null}
       </div>
     </main>
   );
