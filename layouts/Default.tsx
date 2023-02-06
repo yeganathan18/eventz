@@ -28,7 +28,7 @@ export default function AppLayout({
         className={`min-h-screen w-full ${bgWhite ? "bg-white" : "bg-gray-50"}`}
       >
         <Nav />
-        <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
+        <div>
           {children}
         </div>
       </div>

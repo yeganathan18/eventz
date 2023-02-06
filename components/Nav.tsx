@@ -14,7 +14,7 @@ export default function Nav(props) {
       <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
         <nav
           id="main-nav"
-          className="flex lg:items-center justify-between py-8 lg:justify-start lg:space-x-10 h-24"
+          className="flex lg:items-center justify-between  lg:justify-start lg:space-x-10 h-16"
         >
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <NextLink href="/">

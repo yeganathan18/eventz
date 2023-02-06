@@ -5,7 +5,7 @@ import { useMemo } from "react";
 const TabsHelper = (router: NextRouter): { name: string; href: string }[] => {
   return [
     { name: "All events", href: `/dashboard` },
-    { name: "Registered Events", href: `/registered-events` },
+    { name: "Registered events", href: `/registered-events` },
     { name: "Profile", href: `/profile` },
   ];
 };

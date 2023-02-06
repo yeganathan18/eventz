@@ -12,14 +12,14 @@ const Home = () => {
   }
 
   return (
-    <main className="h-screen flex justify-center items-center">
-      <div className="form-container">
-        <h1 className="text-center"> Welcome Back </h1>
+    <main className="h-screen w-3/4 md:w-1/2 xl:w-1/4 mx-auto flex justify-center items-center">
+      <div className="flex flex-col w-full">
+        <h1 className="text-center text-2xl font-medium"> Welcome Back 😃</h1>
         {!session ? (
           <Auth
             supabaseClient={supabase}
             appearance={{ theme: ThemeSupa }}
-            providers={["github"]}
+            // providers={["github"]}
             redirectTo="/dashboard"
           />
         ) : null}

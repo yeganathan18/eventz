@@ -12,8 +12,6 @@ export default function Account({ session }: { session: Session }) {
   const user = useUser();
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState<Profiles["username"]>(null);
-  const [website, setWebsite] = useState<Profiles["website"]>(null);
-  const [avatar_url, setAvatarUrl] = useState<Profiles["avatar_url"]>(null);
 
   useEffect(() => {
     getProfile();
@@ -26,7 +24,7 @@ export default function Account({ session }: { session: Session }) {
 
       let { data, error, status } = await supabase
         .from("profiles")
-        .select(`username, website, avatar_url`)
+        .select(`username`)
         .eq("id", user.id)
         .single();
 
@@ -36,8 +34,6 @@ export default function Account({ session }: { session: Session }) {
 
       if (data) {
         setUsername(data.username);
-        setWebsite(data.website);
-        setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
       alert("Error loading user data!");
@@ -49,12 +45,8 @@ export default function Account({ session }: { session: Session }) {
 
   async function updateProfile({
     username,
-    website,
-    avatar_url,
   }: {
     username: Profiles["username"];
-    website: Profiles["website"];
-    avatar_url: Profiles["avatar_url"];
   }) {
     try {
       setLoading(true);
@@ -63,8 +55,6 @@ export default function Account({ session }: { session: Session }) {
       const updates = {
         id: user.id,
         username,
-        website,
-        avatar_url,
         updated_at: new Date().toISOString(),
       };
 
@@ -94,20 +84,12 @@ export default function Account({ session }: { session: Session }) {
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
-      <div>
-        <label htmlFor="website">Website</label>
-        <input
-          id="website"
-          type="website"
-          value={website || ""}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
+
 
       <div>
         <button
           className="button primary block"
-          onClick={() => updateProfile({ username, website, avatar_url })}
+          onClick={() => updateProfile({ username })}
           disabled={loading}
         >
           {loading ? "Loading ..." : "Update"}
