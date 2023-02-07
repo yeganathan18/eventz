@@ -1,38 +1,77 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+
+<h1 align="center"><b>Eventz</b></h1>
+<p align="center">
+  A college event management system
+  </p>
+</div>
+
+---
+
+## Introduction
+
+This is an event management system for colleges, now magically manage all your events in one place.
+
+Check out the project [demo](https://drive.google.com/drive/folders/11A8xXl6z22Q8nHaOSsushtc03nerV15X?usp=share_link).
+
+## Built with 
+
+- [Next.js](https://nextjs.org/)
+- [Supabase](https://supabase.io/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Supabase Auth](https://supabase.io/)
+
+## Features
+
+The features that are currently supported and implemented in the project at the moment.
+
+### Supported
+
+- [x] Roles: Admin and Participant
+- [x] Authentication UIs including sign in and sign up
+- [x] Profile page with read and update functionality
+- [x] CRUD functionalities of events for Admin
+- [x] Participant can register or unregister for events
+- [x] Search filter of events
+- [x] app is responsive and works on tablet and mobile
+- [x] Event details page i.e `event/:id`
+- [x] Each event has a fixed number of seats and participants can register for the event only if seats are available
+- [x] Generate unique code for registeration
+- [x] verify whether the unique code is not used before
+- [x] Admin can now verify the unique code and mark the participant as verified
+
+
+### In-progress
+
+- [ ] Map integration for events ([partially done](./components/Map.tsx), need to add the map to the event details page and fix the bug)
+- [ ] Event markers should be clustered together with details
+- [ ] clean up the code and make it more readable
+
 
 ## Getting Started
 
-First, run the development server:
+First, clone the repository:
 
 ```bash
-npm run dev
-# or
+git clone https://github.com/yeganathan18/eventz
+```
+
+Note: You need to have env variables set up for the project to work. You can find the env variables in the `.env.example` file.
+
+Install dependencies:
+
+```bash
+yarn install
+```
+
+Run the development server:
+```bash
 yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## License
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[MIT](./LICENSE)
