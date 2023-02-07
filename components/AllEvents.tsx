@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/initSupabase";
+import EventCard from "./EventCard";
 
 const Alert = ({ text }) => (
   <div className="rounded-md bg-red-100 p-4 my-3">
@@ -8,40 +9,12 @@ const Alert = ({ text }) => (
   </div>
 );
 
-const GridCard = ({
-  name,
-  id,
-  description,
-  date,
-  location,
-  max_seat,
-}: {
-    id: string;
-  name: string;
-  description: string;
-  date: string;
-  location: string;
-  max_seat: number;
-}) => {
 
-    let cdate = new Date(date).toLocaleDateString();
-  return (
-    <Link
-        href={`/event/${id}`}
-      className="hover:bg-gray-100 min-h-max p-4 bg-white rounded-lg border border-gray-300"
-    >
-      <h2 className="text-lg font-medium">{name}</h2>
-      <p className="text-gray-600 mt-2">Description: {description}</p>
-      <p className="text-gray-600 mt-2">Date: {cdate}</p>
-      <p className="text-gray-600 mt-2">Location: {location}</p>
-      <p className="text-gray-600 mt-2">Seats {max_seat}</p>
-    </Link>
-  );
-};
 
 export default function AllEvents() {
   const [events, setEvents] = useState([]);
   const [errorText, setError] = useState("");
+  const [isSearching, setisSearching] = useState(false);
 
   useEffect(() => {
     fetchEvents();
@@ -63,7 +36,10 @@ export default function AllEvents() {
             <input
               type="text"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setisSearching(true);
+              }}
               className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 md:w-96"
               placeholder="Search events"
             />
@@ -82,17 +58,42 @@ export default function AllEvents() {
           <div className="flex flex-col px-12 rounded-md border border-gray-200 bg-white py-12">
             {/* create grid cards with 3 col */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 justify-evenly">
-                {events.map((event) => (
-                    <GridCard
+              {!isSearching
+                ? events?.map((event) => (
+                    <EventCard
+                      key={event.id}
+                      id={event.id}
+                      name={event.event_name}
+                      description={event.event_description}
+                      date={event.event_date}
+                      location={event.event_location}
+                      max_seat={event.max_seat}
+                    />
+                  ))
+                  // TODO: add debounce to search input
+                : events
+                    ?.filter((event) => {
+                      if (searchTerm === "") {
+                        return event;
+                      } else if (
+                        event.event_name
+                          .toLowerCase()
+                          .includes(searchTerm.toLowerCase())
+                      ) {
+                        return event;
+                      }
+                    })
+                    .map((event) => (
+                      <EventCard
                         key={event.id}
                         id={event.id}
                         name={event.event_name}
                         description={event.event_description}
                         date={event.event_date}
-                        location={event.location}
+                        location={event.event_location}
                         max_seat={event.max_seat}
-                    />
-                ))}
+                      />
+                    ))}
             </div>
           </div>
         </div>

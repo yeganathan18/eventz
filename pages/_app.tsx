@@ -24,7 +24,7 @@ function MyApp({
     <>
       <Head>
         <title>Eventz</title>
-        <meta name="description" content="GitWonk Studio Dashboard" />
+        <meta name="description" content="Manage events magically" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <SessionContextProvider

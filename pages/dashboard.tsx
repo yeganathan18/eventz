@@ -1,7 +1,7 @@
 import AppLayout from "@/layouts/Default";
 import AllEvents from "@/components/AllEvents";
 import { useUser } from "@supabase/auth-helpers-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../lib/initSupabase";
 import toast from "react-hot-toast";
 
@@ -19,8 +19,7 @@ const Dashboard = () => {
     description: "",
   });
 
-  //
-
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const user = useUser();
 
   const addEvent = async (formData) => {
@@ -70,6 +69,28 @@ const Dashboard = () => {
     addEvent(formData);
     event.preventDefault();
   };
+
+  // fetach user data
+  const [userDetails, setUserDetails] = useState({});
+  const fetchUser = async () => {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .single();
+    if (error) {
+      console.log(error, "error");
+    } else {
+      setUserDetails(data);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      fetchUser();
+    }
+  }, [user]);
+
   return (
     <AppLayout>
       <div className="h-36 border-b border-gray-200 bg-white">
@@ -83,12 +104,14 @@ const Dashboard = () => {
                   You can check all the listed events here.
                 </p>
               </div>
-              <button
-                className="rounded-md border border-black bg-black px-5 py-2 text-sm font-medium text-white transition-all duration-75 hover:bg-white hover:text-black active:scale-95"
-                onClick={() => setShowModal(true)}
-              >
-                Create Event
-              </button>
+              {userDetails?.user_role === "admin" && (
+                <button
+                  className="rounded-md border border-black bg-black px-5 py-2 text-sm font-medium text-white transition-all duration-75 hover:bg-white hover:text-black active:scale-95"
+                  onClick={() => setShowModal(true)}
+                >
+                  Create Event
+                </button>
+              )}
             </div>
           </div>
         </div>
