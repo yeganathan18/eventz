@@ -47,7 +47,7 @@ const Event = () => {
 
   const uniqueCode = () => {
     // @ts-ignore
-    const code = event.event_name.substring(0, 2) + event_id + user?.id.slice(-4);
+    const code = event_id + user?.id.slice(-4);
     setUniqueCode(code);
     return code;
   };
