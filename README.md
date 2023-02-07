@@ -72,8 +72,13 @@ Run the development server:
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To login as *admin*, use the credentials below (they are prepopulated into the db):
+```bash
+Email: yeganathan18@gmail.com
+Password: password
+```
 
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## License
 
