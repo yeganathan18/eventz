@@ -32,7 +32,7 @@ export default function Nav(props) {
             <UserDropdown />
           </div>
         </nav>
-        <NavTabs />
+        <NavTabs userRole={props?.userrole} />
       </div>
     </header>
   );

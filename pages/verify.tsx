@@ -13,7 +13,7 @@ const Verify = () => {
     const { data, error } = await supabase
       .from("registrations")
       .select("*")
-      .order("id", { ascending: false });
+      .order("registration_id", { ascending: false });
     if (error) {
       toast.error(error.message);
     } else {
@@ -23,6 +23,8 @@ const Verify = () => {
     }
   };
 
+  console.log(registerations);
+
   useEffect(() => {
     getAllRegisterations();
   }, []);
@@ -31,7 +33,7 @@ const Verify = () => {
     const { data, error } = await supabase
       .from("registrations")
       .update({ is_verified: true })
-      .eq("id", id);
+      .eq("registration_id", id);
     if (error) {
       toast.error(error.message);
     } else {
@@ -72,7 +74,7 @@ const Verify = () => {
                     <p className="text-violet-600">unique_code: {registeration?.unique_code}</p>
                     <button
                       className="bg-black hover:bg-gray-700 mt-4 text-white font-bold py-2 px-4 rounded-lg"
-                      onClick={() => verifyUser(registeration?.id)}
+                      onClick={() => verifyUser(registeration?.registration_id)}
                     >
                       Verify
                     </button>

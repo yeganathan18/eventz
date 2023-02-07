@@ -47,6 +47,13 @@ export default function AppLayout({
     } catch (error) {}
   }
 
+  // store the user's role in local storage
+  useEffect(() => {
+    if (userrole) {
+      localStorage.setItem("userrole", userrole);
+    }
+  }, [userrole]);
+
   return (
     <div>
       <Toaster position="top-center" reverseOrder={false} />

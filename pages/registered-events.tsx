@@ -72,11 +72,12 @@ const RegisteredEvents = () => {
                   <EventCard
                     key={event.event_id}
                     id={event.event_id}
-                    name={event.event_name}
-                    description={event.event_description}
-                    date={event.event_start_time}
+                    event_name={event.event_name}
+                    event_description={event.event_description}
+                    start_time={event.event_start_time}
+                    end_time={event.event_end_time}
                     location={event.location}
-                    max_seat={event.max_seats}
+                    max_seats={event.max_seats}
                   />
                 ))
               ) : (

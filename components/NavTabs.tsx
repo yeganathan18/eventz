@@ -3,12 +3,23 @@ import { NextRouter, useRouter } from "next/router";
 import { useMemo } from "react";
 
 const TabsHelper = (router: NextRouter): { name: string; href: string }[] => {
-  return [
-    { name: "All events", href: `/dashboard` },
-    { name: "Registered events", href: `/registered-events` },
-    { name: "Verify users", href: `/verify` },
-    { name: "Profile", href: `/profile` },
-  ];
+  // get user role from local storage
+  const userrole = localStorage.getItem("userrole");
+  console.log(userrole);
+
+  if (userrole === "admin") {
+    return [
+      { name: "All events", href: `/dashboard` },
+      { name: "Verify users", href: `/verify` },
+      { name: "Profile", href: `/profile` },
+    ];
+  } else if (userrole === "participant") {
+    return [
+      { name: "All events", href: `/dashboard` },
+      { name: "Registered events", href: `/registered-events` },
+      { name: "Profile", href: `/profile` },
+    ];
+  }
 };
 
 export default function NavTabs() {
@@ -23,7 +34,7 @@ export default function NavTabs() {
 
   return (
     <div className="-mb-0.5 flex h-12 items-center justify-start space-x-4">
-      {tabs.map(({ name, href }) => (
+      {tabs?.map(({ name, href }) => (
         <Link
           key={href}
           href={href}

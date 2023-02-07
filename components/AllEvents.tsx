@@ -53,7 +53,7 @@ export default function AllEvents(props) {
         </div>
       </div>
       {!!errorText && <Alert text={errorText} />}
-      <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
+      <div className="mx-auto max-w-screen-xl px-2.5 md:px-20 pb-8">
         <div className="grid grid-cols-1 gap-3">
           <div className="flex flex-col px-12 rounded-md border border-gray-200 bg-white py-12">
             {/* create grid cards with 3 col */}
@@ -63,11 +63,12 @@ export default function AllEvents(props) {
                     <EventCard
                       key={event.event_id}
                       id={event.event_id}
-                      name={event.event_name}
-                      description={event.event_description}
-                      date={event.event_start_time}
+                      event_name={event.event_name}
+                      event_description={event.event_description}
+                      start_time={event.event_start_time}
+                      end_time={event.event_end_time}
                       location={event.location}
-                      max_seat={event.max_seats}
+                      max_seats={event.max_seats}
                     />
                   ))
                 : // TODO: add debounce to search input
@@ -87,11 +88,12 @@ export default function AllEvents(props) {
                       <EventCard
                         key={event.event_id}
                         id={event.event_id}
-                        name={event.event_name}
-                        description={event.event_description}
-                        date={event.event_start_time}
+                        event_name={event.event_name}
+                        event_description={event.event_description}
+                        start_time={event.event_start_time}
+                        end_time={event.event_end_time}
                         location={event.location}
-                        max_seat={event.max_seats}
+                        max_seats={event.max_seats}
                       />
                     ))}
             </div>
