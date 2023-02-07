@@ -9,12 +9,12 @@ const Alert = ({ text }) => (
   </div>
 );
 
-
-
-export default function AllEvents() {
+export default function AllEvents(props) {
   const [events, setEvents] = useState([]);
   const [errorText, setError] = useState("");
   const [isSearching, setisSearching] = useState(false);
+
+  // if props.isUpdate is true, fetch events from db
 
   useEffect(() => {
     fetchEvents();
@@ -67,11 +67,11 @@ export default function AllEvents() {
                       description={event.event_description}
                       date={event.event_start_time}
                       location={event.location}
-                      max_seat={event.max_seat}
+                      max_seat={event.max_seats}
                     />
                   ))
-                  // TODO: add debounce to search input
-                : events
+                : // TODO: add debounce to search input
+                  events
                     ?.filter((event) => {
                       if (searchTerm === "") {
                         return event;

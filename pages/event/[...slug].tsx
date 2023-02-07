@@ -1,17 +1,26 @@
+"use client";
+
 import { useRouter } from "next/router";
 import AppLayout from "@/layouts/Default";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/initSupabase";
 import toast from "react-hot-toast";
 import { useUser } from "@supabase/auth-helpers-react";
+import Map from "@/components/Map";
+import dynamic from "next/dynamic";
+import "leaflet/dist/leaflet.css";
 
 const Event = () => {
+  const MapWithNoSSR = dynamic(() => import("../../components/Map"), {
+    ssr: false
+  });
+  
   const user = useUser();
   const router = useRouter();
   let { slug } = router.query;
   const event_id = slug[0];
   const [registered, setRegistered] = useState(false);
-  console.log(slug);
+  const [mapMounted, setMapMounted] = useState(false);
 
   const [event, setEvent] = useState({});
 
@@ -51,16 +60,6 @@ const Event = () => {
     }
   };
 
-  // // if an event is registered then the event seat will be reduced by 1
-  // const reduceEventSeat = async () => {
-  //   const { data, error } = await supabase
-  //     .from("events")
-  //     .update({ max_seat: event.max_seat - 1 })
-  //     .eq("id", event_id);
-  //   if (error) {
-  //     toast.error(error.message);
-  //   }
-  // };
 
   const checkIfRegistered = async () => {
     const { data, error } = await supabase
@@ -89,24 +88,12 @@ const Event = () => {
       .eq("user_id", user?.id);
     if (error) {
       toast.error(error.message);
-      
     } else {
       toast.success("You have successfully unregistered for this event!");
-      increaseEventSeat();
       setRegistered(false);
     }
   };
 
-  // if an event is unregistered then the event seat will be increased by 1
-  const increaseEventSeat = async () => {
-    const { data, error } = await supabase
-      .from("events")
-      .update({ max_seat: event.max_seats + 1 })
-      .eq("id", event_id);
-    if (error) {
-      toast.error(error.message);
-    }
-  };
 
   return (
     <AppLayout>
@@ -123,6 +110,7 @@ const Event = () => {
                   {" "}
                   Informations about the event{" "}
                   <span className="font-semibold text-black">
+                    {/* @ts-ignore */}
                     {event?.event_name}
                   </span>
                 </p>
@@ -154,6 +142,9 @@ const Event = () => {
                 Page under construction 🛠️
               </h1>
             </div>
+            
+            <MapWithNoSSR />
+              
           </div>
         </div>
       </div>

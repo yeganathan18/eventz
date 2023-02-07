@@ -13,8 +13,9 @@ const Dashboard = () => {
   });
   const [formData, setFormData] = useState({
     event_name: "",
-    event_max_seat: 100,
-    date: "",
+    max_seat: 0,
+    start_time: null,
+    end_time: null,
     location: "",
     description: "",
   });
@@ -29,9 +30,10 @@ const Dashboard = () => {
     const { data, error } = await supabase.from("events").insert([
       {
         event_name: item.event_name,
-        max_seat: Number(item.event_max_seat),
-        event_date: item.date,
-        event_location: item.location,
+        max_seats: Number(item.max_seat),
+        event_start_time: item.start_time,
+        event_end_time: item.end_time,
+        location: item.location,
         event_description: item.description,
         created_by: user.id,
         created_at: new Date(),
@@ -56,8 +58,9 @@ const Dashboard = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     if (
       !formData.event_name ||
-      !formData.event_max_seat ||
-      !formData.date ||
+      !formData.max_seat ||
+      !formData.start_time ||
+      !formData.end_time ||
       !formData.location ||
       !formData.description
     ) {
@@ -145,40 +148,57 @@ const Dashboard = () => {
                     type="text"
                     id="event_name"
                     name="event_name"
+                    placeholder="Event Name"
                     value={formData.event_name}
                     onChange={handleInputChange}
                     className="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                   />
                 </div>
 
-                {/* <div className="my-4">
+                <div className="my-4">
                   <label
-                    htmlFor="email"
+                    htmlFor="max_seat"
                     className="block text-sm font-medium leading-5 text-gray-700"
                   >
                     Max seat
                   </label>
+
                   <input
                     type="number"
                     id="max_seat"
                     name="max_seat"
-                    value={formData.event_max_seat}
+                    placeholder="Max seats"
+                    // value={formData.event_max_seat}
                     onChange={handleInputChange}
                     className="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                   />
-                </div> */}
+                </div>
                 <div className="my-4">
                   <label
                     htmlFor="email"
                     className="block text-sm font-medium leading-5 text-gray-700"
                   >
-                    Date
+                    Start Time
                   </label>
                   <input
                     type="date"
                     id="date"
                     name="date"
-                    value={formData.date}
+                    onChange={handleInputChange}
+                    className="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                  />
+                </div>
+                <div className="my-4">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium leading-5 text-gray-700"
+                  >
+                    End Time
+                  </label>
+                  <input
+                    type="date"
+                    id="date"
+                    name="date"
                     onChange={handleInputChange}
                     className="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                   />
@@ -194,6 +214,7 @@ const Dashboard = () => {
                     type="text"
                     id="location"
                     name="location"
+                    placeholder="Enter places like 'Kathmandu, Nepal'"
                     value={formData.location}
                     onChange={handleInputChange}
                     className="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
