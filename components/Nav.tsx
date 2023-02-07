@@ -21,8 +21,14 @@ export default function Nav(props) {
               <Logo className="h-8 w-8 transition-all duration-75 active:scale-95" />
             </NextLink>
             <Divider className="h-8 w-8 text-gray-200 sm:ml-3" />
+            <span className="mt-2 h-8 text-gray-400">{props?.username}</span>
           </div>
           <div className=" lg:flex justify-end">
+            <div className="flex justify-center items-center mr-3">
+              <span className=" bg-green-200 border border-indigo-300 rounded-lg px-2 py-1 text-xs capitalize">
+                {props?.userrole}
+              </span>
+            </div>
             <UserDropdown />
           </div>
         </nav>

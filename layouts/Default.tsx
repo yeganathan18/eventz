@@ -1,12 +1,11 @@
-import dynamic from "next/dynamic";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import Script from "next/script";
 import { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
-import { Divider, Logo } from "@/components/shared/icons";
-import UserDropdown from "@/components/UserDropDown";
 import Nav from "@/components/Nav";
+import { useState, useEffect } from "react";
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { Database } from "../utils/database.types";
+type Profiles = Database["public"]["Tables"]["profiles"]["Row"];
 
 export default function AppLayout({
   children,
@@ -20,6 +19,33 @@ export default function AppLayout({
     slug?: string;
     key?: string;
   };
+  const supabase = useSupabaseClient<Database>();
+  const user = useUser();
+  const [username, setUsername] = useState<Profiles["username"]>(null);
+  const [userrole, setUserrole] = useState<Profiles["user_role"]>(null);
+
+  useEffect(() => {
+    getProfile();
+  }, [user]);
+
+  async function getProfile() {
+    try {
+      let { data, error, status } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single();
+
+      if (error && status !== 406) {
+        throw error;
+      }
+
+      if (data) {
+        setUsername(data.username);
+        setUserrole(data.user_role);
+      }
+    } catch (error) {}
+  }
 
   return (
     <div>
@@ -27,7 +53,7 @@ export default function AppLayout({
       <div
         className={`min-h-screen w-full ${bgWhite ? "bg-white" : "bg-gray-50"}`}
       >
-        <Nav />
+        <Nav username={username} userrole={userrole} />
         <div>{children}</div>
       </div>
     </div>
