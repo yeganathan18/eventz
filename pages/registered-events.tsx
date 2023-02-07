@@ -31,7 +31,7 @@ const RegisteredEvents = () => {
     const { data, error } = await supabase
       .from("events")
       .select("*")
-      .eq("id", event_id)
+      .eq("event_id", event_id)
       .single();
     if (error) {
       toast.error(error.message);
@@ -70,13 +70,13 @@ const RegisteredEvents = () => {
               {events.length > 0 ? (
                 events.map((event) => (
                   <EventCard
-                    key={event.id}
-                    id={event.id}
+                    key={event.event_id}
+                    id={event.event_id}
                     name={event.event_name}
                     description={event.event_description}
-                    date={event.event_date}
-                    location={event.event_location}
-                    max_seat={event.max_seat}
+                    date={event.event_start_time}
+                    location={event.location}
+                    max_seat={event.max_seats}
                   />
                 ))
               ) : (

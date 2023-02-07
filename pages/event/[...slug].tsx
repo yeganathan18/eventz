@@ -11,6 +11,7 @@ const Event = () => {
   let { slug } = router.query;
   const event_id = slug[0];
   const [registered, setRegistered] = useState(false);
+  console.log(slug);
 
   const [event, setEvent] = useState({});
 
@@ -23,7 +24,7 @@ const Event = () => {
     const { data, error } = await supabase
       .from("events")
       .select("*")
-      .eq("id", event_id)
+      .eq("event_id", event_id)
       .single();
     if (error) {
       toast.error(error.message);
@@ -46,21 +47,20 @@ const Event = () => {
       toast.error(error.message);
     } else {
       toast.success("You have successfully registered for this event!");
-      reduceEventSeat();
       setRegistered(true);
     }
   };
 
-  // if an event is registered then the event seat will be reduced by 1
-  const reduceEventSeat = async () => {
-    const { data, error } = await supabase
-      .from("events")
-      .update({ max_seat: event.max_seat - 1 })
-      .eq("id", event_id);
-    if (error) {
-      toast.error(error.message);
-    }
-  };
+  // // if an event is registered then the event seat will be reduced by 1
+  // const reduceEventSeat = async () => {
+  //   const { data, error } = await supabase
+  //     .from("events")
+  //     .update({ max_seat: event.max_seat - 1 })
+  //     .eq("id", event_id);
+  //   if (error) {
+  //     toast.error(error.message);
+  //   }
+  // };
 
   const checkIfRegistered = async () => {
     const { data, error } = await supabase
@@ -101,7 +101,7 @@ const Event = () => {
   const increaseEventSeat = async () => {
     const { data, error } = await supabase
       .from("events")
-      .update({ max_seat: event.max_seat + 1 })
+      .update({ max_seat: event.max_seats + 1 })
       .eq("id", event_id);
     if (error) {
       toast.error(error.message);
