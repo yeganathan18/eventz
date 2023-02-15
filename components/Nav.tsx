@@ -16,14 +16,14 @@ export default function Nav(props) {
           id="main-nav"
           className="flex lg:items-center justify-between  lg:justify-start lg:space-x-10 h-16"
         >
-          <div className="flex justify-start lg:w-0 lg:flex-1">
+          <div className="flex justify-start lg:w-0 lg:flex-1 items-center">
             <NextLink href="/">
               <Logo className="h-8 w-8 transition-all duration-75 active:scale-95" />
             </NextLink>
             <Divider className="h-8 w-8 text-gray-200 sm:ml-3" />
             <span className="mt-2 h-8 text-gray-400">{props?.username}</span>
           </div>
-          <div className=" lg:flex justify-end">
+          <div className="flex justify-end items-center">
             <div className="flex justify-center items-center mr-3">
               <span className=" bg-green-200 border border-indigo-300 rounded-lg px-2 py-1 text-xs capitalize">
                 {props?.userrole}
@@ -32,6 +32,7 @@ export default function Nav(props) {
             <UserDropdown />
           </div>
         </nav>
+        {/* @ts-ignore */}
         <NavTabs userRole={props?.userrole} />
       </div>
     </header>

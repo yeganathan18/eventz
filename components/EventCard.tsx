@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { supabase } from "@/lib/initSupabase";
 
@@ -55,6 +55,16 @@ const EventCard = ({
       [event.target.name]: event.target.value,
     });
   };
+
+  useEffect(() => {
+    const formattedSdate = new Date(start_time).toISOString().substr(0, 10);
+    const formattedEdate = new Date(end_time).toISOString().substr(0, 10);
+    setFormData({
+      ...formData,
+      start_time: formattedSdate,
+      end_time: formattedEdate,
+    });
+  }, []);
 
   // create update event table in supabase
   const updateEvent = async (formData) => {
@@ -127,7 +137,7 @@ const EventCard = ({
           <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-md sm:w-full">
             <form onSubmit={handleSubmit}>
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <h1 className="text-lg font-medium">Create Event</h1>
+                <h1 className="text-lg font-medium">Edit Event</h1>
                 <div className="my-4">
                   <label
                     htmlFor="name"
@@ -156,8 +166,8 @@ const EventCard = ({
 
                   <input
                     type="number"
-                    id="max_seat"
-                    name="max_seat"
+                    id="max_seats"
+                    name="max_seats"
                     placeholder="Max seats"
                     value={formData.max_seats}
                     onChange={handleInputChange}
@@ -173,8 +183,8 @@ const EventCard = ({
                   </label>
                   <input
                     type="date"
-                    id="edate"
-                    name="edate"
+                    id="start_time"
+                    name="start_time"
                     value={formData.start_time}
                     onChange={handleInputChange}
                     className="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
@@ -189,8 +199,8 @@ const EventCard = ({
                   </label>
                   <input
                     type="date"
-                    id="edate"
-                    name="edate"
+                    id="end_time"
+                    name="end_time"
                     value={formData.end_time}
                     onChange={handleInputChange}
                     className="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"

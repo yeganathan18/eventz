@@ -6,15 +6,16 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/initSupabase";
 import toast from "react-hot-toast";
 import { useUser } from "@supabase/auth-helpers-react";
-import Map from "@/components/Map";
+
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
 
-const Event = () => {
-  const MapWithNoSSR = dynamic(() => import("../../components/Map"), {
-    ssr: false,
-  });
+const MapWithNoSSR = dynamic(() => import("../../components/Map"), {
+  ssr: false,
+});
 
+
+const Event = () => {
   const user = useUser();
   const router = useRouter();
   let { slug } = router.query;
@@ -65,6 +66,7 @@ const Event = () => {
       setRegistered(true);
     }
   };
+
 
   const checkIfRegistered = async () => {
     const { data, error } = await supabase
