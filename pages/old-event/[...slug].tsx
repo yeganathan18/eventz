@@ -7,13 +7,6 @@ import { supabase } from "@/lib/initSupabase";
 import toast from "react-hot-toast";
 import { useUser } from "@supabase/auth-helpers-react";
 
-import dynamic from "next/dynamic";
-import "leaflet/dist/leaflet.css";
-
-const MapWithNoSSR = dynamic(() => import("../../components/Map"), {
-  ssr: false,
-});
-
 
 const Event = () => {
   const user = useUser();
@@ -203,8 +196,6 @@ const Event = () => {
                 Maximum Capacity : {event?.max_seats}
               </p>
             </div>
-
-            <MapWithNoSSR />
           </div>
         </div>
       </div>

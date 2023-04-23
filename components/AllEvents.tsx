@@ -1,6 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { supabase } from "../lib/initSupabase";
+import { useSupabase } from "../app/supabase-provider";
 import EventCard from "./EventCard";
 
 const Alert = ({ text }) => (
@@ -13,6 +15,8 @@ export default function AllEvents(props) {
   const [events, setEvents] = useState([]);
   const [errorText, setError] = useState("");
   const [isSearching, setisSearching] = useState(false);
+  const { supabase } = useSupabase();
+
 
   // if props.isUpdate is true, fetch events from db
 

@@ -1,3 +1,4 @@
+import AllEvents from "@/components/AllEvents";
 import DashboardEvents from "@/components/dashboard-events";
 
 export const metadata = {
@@ -15,6 +16,7 @@ export default function Dashboard() {
       </div>
       <div className="bg-white py-10">
         <DashboardEvents />
+        {/* <AllEvents /> */}
       </div>
     </>
   );
