@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
@@ -39,7 +39,7 @@ export default function Popover({
   // workaround to make popover close when route changes on desktop
   useEffect(() => {
     setOpenPopover(false);
-  }, [router.query.slug]);
+  }, [router.query]);
 
   return (
     <>

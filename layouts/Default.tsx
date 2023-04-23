@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
-import Nav from "@/components/Nav";
+import Nav from "@/components/navbar";
 import { useState, useEffect } from "react";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Database } from "../utils/database.types";
@@ -33,7 +33,7 @@ export default function AppLayout({
       let { data, error, status } = await supabase
         .from("profiles")
         .select("*")
-        .eq("id", user.id)
+        .eq("id", user?.id)
         .single();
 
       if (error && status !== 406) {
@@ -60,7 +60,7 @@ export default function AppLayout({
       <div
         className={`min-h-screen w-full ${bgWhite ? "bg-white" : "bg-gray-50"}`}
       >
-        <Nav username={username} userrole={userrole} />
+        <Nav />
         <div>{children}</div>
       </div>
     </div>

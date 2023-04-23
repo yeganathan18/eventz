@@ -1,5 +1,4 @@
 import AppLayout from "@/layouts/Default";
-import AllEvents from "@/components/AllEvents";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/initSupabase";

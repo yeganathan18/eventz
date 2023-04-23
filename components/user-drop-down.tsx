@@ -5,7 +5,7 @@ import IconMenu from "./shared/icon-menu";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function UserDropdown() {
   const user = useUser();
